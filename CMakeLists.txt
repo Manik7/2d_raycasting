@@ -4,13 +4,16 @@ project(box_raycasting)
 
 set(CMAKE_CXX_STANDARD 23)
 
-set(SOURCES src/io.cpp
-            src/raycast.cpp
-            src/transformations.cpp
+set(SOURCES
+    src/io.cpp
+    src/raycast.cpp
+    src/transformations.cpp
 )
-set(TESTS test/test_image.cpp
-          test/test_radians.cpp
-          test/test_transformations.cpp
+set(TESTS
+    test/test_draw.cpp
+    test/test_image.cpp
+    test/test_radians.cpp
+    test/test_transformations.cpp
 )
 
 find_package(GTest REQUIRED)

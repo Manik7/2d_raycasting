@@ -1,7 +1,6 @@
 #pragma once
 
 #include <array>
-#include <cstdint>
 #include "constants.hpp"
 
 namespace rc {
@@ -10,13 +9,6 @@ struct Coordinate
 {
     int row{};
     int col{};
-};
-
-struct BGR
-{
-    uint8_t blue{0U};
-    uint8_t green{0U};
-    uint8_t red{0U};
 };
 
 template <typename T, int Height, int Width, int Padding = 0>
@@ -52,6 +44,6 @@ struct GenericImage
     std::array<T, padded_size()> _data{};
 };
 
-using Image = GenericImage<BGR, IMAGE::height, IMAGE::width, IMAGE::padding>;
+using Image = GenericImage<BGR, image::height, image::width, image::padding>;
 
 }
