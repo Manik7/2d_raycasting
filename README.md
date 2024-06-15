@@ -6,7 +6,7 @@ Render an image of a box and a ground plane using raycasting.
 
 1. Install dependencies
 ```bash
-sudo apt get install g++ cmake libgtest-dev libopencv-dev
+sudo apt get install g++ cmake libgtest-dev libopencv-dev libeigen3-dev
 ```
 
 2. Clone the repo
