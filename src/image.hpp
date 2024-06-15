@@ -1,6 +1,8 @@
 #pragma once
 
 #include <array>
+#include <cstdint>
+#include "constants.hpp"
 
 namespace rc {
 
@@ -10,8 +12,15 @@ struct Coordinate
     int col{};
 };
 
+struct BGR
+{
+    uint8_t blue{0U};
+    uint8_t green{0U};
+    uint8_t red{0U};
+};
+
 template <typename T, int Height, int Width, int Padding = 0>
-struct Image
+struct GenericImage
 {
     static constexpr int height()                { return Height; }
     static constexpr int width()                 { return Width; }
@@ -22,8 +31,8 @@ struct Image
     static constexpr int padded_size()           { return padded_height() * padded_width(); }
     static constexpr int index(int row, int col) { return (row+Padding)*padded_width() + (col+Padding); } // row-major
 
-    Image() = default;
-    Image(std::array<T, size()> const& contents, T padding_value)
+    GenericImage() = default;
+    GenericImage(std::array<T, size()> const& contents, T padding_value)
     {
         std::fill(_data.begin(), _data.end(), padding_value);
         for (int h = 0; h < Height; ++h)
@@ -42,5 +51,7 @@ struct Image
 
     std::array<T, padded_size()> _data{};
 };
+
+using Image = GenericImage<BGR, IMAGE::height, IMAGE::width, IMAGE::padding>;
 
 }

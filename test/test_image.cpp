@@ -6,7 +6,7 @@ namespace {
 
 TEST(image, index)
 {
-    const rc::Image<char, 3, 2> image{};
+    const rc::GenericImage<char, 3, 2> image{};
 
     EXPECT_EQ(image.index(0, 0), 0);
     EXPECT_EQ(image.index(0, 1), 1);
@@ -24,7 +24,7 @@ TEST(image, index_padded)
     //  . 13 14  .
     //  .  .  .  .
 
-    const rc::Image<char, 3, 2, 1> image{};
+    const rc::GenericImage<char, 3, 2, 1> image{};
 
     EXPECT_EQ(image.index(0, 0), 5);
     EXPECT_EQ(image.index(0, 1), 6);
@@ -36,7 +36,7 @@ TEST(image, index_padded)
 
 TEST(image, empty)
 {
-    const rc::Image<char, 0, 0> image{};
+    const rc::GenericImage<char, 0, 0> image{};
 
     ASSERT_EQ(image.size(), 0);
     ASSERT_EQ(image._data.size(), 0);
@@ -46,7 +46,7 @@ TEST(image, empty)
 
 TEST(image, symbols)
 {
-    const rc::Image<char, 1, 6> image({'a', 'b', 'c', 'd', 'e', 'f'}, '0');
+    const rc::GenericImage<char, 1, 6> image({'a', 'b', 'c', 'd', 'e', 'f'}, '0');
 
     ASSERT_EQ(image.size(), 6);
     ASSERT_EQ(image._data.size(), 6);
@@ -62,7 +62,7 @@ TEST(image, symbols)
 
 TEST(image, six)
 {
-    const rc::Image<char, 3, 2> image({'a', 'b', 'c', 'd', 'e', 'f'}, '0');
+    const rc::GenericImage<char, 3, 2> image({'a', 'b', 'c', 'd', 'e', 'f'}, '0');
 
     ASSERT_EQ(image.size(), 6);
     ASSERT_EQ(image._data.size(), 6);
@@ -78,7 +78,7 @@ TEST(image, six)
 
 TEST(image, six_padded)
 {
-    const rc::Image<char, 3, 2, 1> image({'a', 'b', 'c', 'd', 'e', 'f'}, '0');
+    const rc::GenericImage<char, 3, 2, 1> image({'a', 'b', 'c', 'd', 'e', 'f'}, '0');
 
     ASSERT_EQ(image.size(), 6);
     ASSERT_EQ(image.height(), 3);
@@ -99,7 +99,7 @@ TEST(image, floats)
     // astoundingly, even this unit test, with a value type which cannot be converted implicitely, would not have made
     // a difference in the cryptic compiler output for the bug which cost me so much time
 
-    const rc::Image<float, 3, 2, 1> image({0.0F, 1.0F, 2.0F, 3.0F, 4.0F, 5.0F}, NAN);
+    const rc::GenericImage<float, 3, 2, 1> image({0.0F, 1.0F, 2.0F, 3.0F, 4.0F, 5.0F}, NAN);
 
     ASSERT_EQ(image.size(), 6);
     ASSERT_EQ(image.padded_size(), 20);
