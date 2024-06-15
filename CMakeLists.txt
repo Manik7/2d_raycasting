@@ -8,6 +8,7 @@ set(SOURCES src/io.cpp
             src/raycast.cpp
 )
 set(TESTS test/test_image.cpp
+          test/test_transformations.cpp
 )
 
 find_package(GTest REQUIRED)
