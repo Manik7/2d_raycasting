@@ -14,7 +14,7 @@ namespace io
             for (int w = 0; w < image.width(); ++w)
             {
                 rc::BGR pixel = image(h, w);
-                result.at<cv::Vec3b>(h, w) = cv::Vec3b(pixel.blue, pixel.green, pixel.red);
+                result.at<cv::Vec3b>(h, w) = cv::Vec3b(pixel._blue, pixel._green, pixel._red);
             }
         }
         return result;
