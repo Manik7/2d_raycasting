@@ -67,7 +67,7 @@ Optional: I could do super-sampling / anti-aliasing to sharpen the images a bit.
 
 **Sink interface** 
 - tensor with color and depth values
-- use mdspan? ;)
+- use mdspan? -- GCC does NOT have an implementation of mdspan yet... :'(
 - use std::vector for the underlying data since my algorithms are all hard-coded to vector 
         - (changing 'drop' to std::array is non-trivial, the sizes must be known at compile-time or better yet I would have to change the implementation to a view)
 
