@@ -20,6 +20,8 @@ namespace rc
         draw(p1, color::green, image);
         draw(p2, color::magenta, image);
 
+        draw(p1, p2, color::magenta, image);
+
         Transformation R = rotate(Degrees{-10});
         Vertex a = vertex(0, 200);
         draw(a, color::cyan, image);
