@@ -5,12 +5,6 @@
 
 namespace rc {
 
-struct Coordinate
-{
-    int row{};
-    int col{};
-};
-
 template <typename T, int Height, int Width, int Padding = 0>
 struct GenericImage
 {
@@ -37,9 +31,7 @@ struct GenericImage
     }
     
     T& operator()(int row, int col)              { return _data[index(row, col)]; }
-    T& operator()(Coordinate c)                  { return _data[index(c.row, c.col)]; }
     const T& operator()(int row, int col) const  { return _data[index(row, col)]; }
-    const T& operator()(Coordinate c) const      { return _data[index(c.row, c.col)]; }
 
     std::array<T, padded_size()> _data{};
 };
