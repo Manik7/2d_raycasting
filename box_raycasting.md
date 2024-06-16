@@ -38,8 +38,37 @@ I will hard-code the ground plane and single box in the main method.
 - lighting list
 - camera position
 
+### Representation of geometry
+Raycasting a box is much easier if that box is axis-aligned, because then the intersection test only has to check a one-dimensional interval along each axis.
+In the object coordinate system, a box is axis aligned.
+Thus, I can make the intersection test for boxes and planes easier if I transform the ray into the object coordinate system.
+To make this as easy as possible, I will use homogenous coordinate transforms, so I can easily switch coordinate systems from one object to the next.
+Every object will need to store a transformation, relative to the origin (or some other parent object).
+This forms the basis for the scene graph.
+
+### Bag of lines
+
+A polygon is just a collection of lines.
+If I want to test a ray for intersection with the polygon, then I must test it for intersection with each of its constituent lines.
+This means that all the geometric object has to be able to provide, is a collection of lines.
+(Note: later on a bag of triangles datatype would allow extending this design to 3d.)
+
+Information about surface normals for each of those lines, could be helpful as well, but may not be necessary as all objects are opaque.
+If all objects are oqaque (no transparency), and the camera is always _outside_ of the objects, the closest hit is always on the outside of an object.
+
+So how can I implement a 'bag of lines' datatype to handle these all consistently?
+
+TODO
+
+
+
 ### Scene Graph
-Tree structure which stores the scene.
+
+The scene graph is a tree structure which stores all the geometry in the scene.
+The root node is the origin of the world coordinate system (identity matrix).
+
+
+Tree structure which stores all the objects in the scene, together with their relative transformations.
 The objects from the source need to be added to the scene graph.
 Bounding volumes may have to be calculated for each object.
 Inverse coordinate transformations to get from the object to origin (or the camera) may need to be calculated.
@@ -74,12 +103,52 @@ Optional: I could do super-sampling / anti-aliasing to sharpen the images a bit.
 Take the data from the tensor and visualize it, either by directly displaying it with OpenCV im.show() and/or writing it to an image file.
 
 ### Supporting libraries
-- mdspan from STL
-- some of the C++ algorithms I have recently written for std::vectors
+- STL
 - OpenCV to draw the image
 - Eigen for the vector and matrix operations, which will make it much easier to work with homogeneous coordinates
+- some of the C++ algorithms I have recently written for std::vectors
 
 ## Alternatives
+
+### Adjacency matrix and list of points
+
+Given a list of lines, an adjacency matrix can easily encode which points are connected with lines.
+Polygons encoded within it, do not suffer from numerical stability issues as much, since there is a single source of truth for each point.
+For a dense adjacency matrix the memory requirement lies in O(n) for the number of points, albeit it is only one boolean per cell.
+If the lines don't have the direction, the matric is symmetric, cutting storage requirements in half.
+The number of points would have to be in the thousands, for memory usage to be a relevant issue.
+
+### Heterogeneous representations
+N  | Object            | Tuple                              | Comments                                                              |
+-- | ----------------- | ---------------------------------- | --------------------------------------------------------------------- |
+1  | Coordinate system | (Transform)                        |                                                                       |
+2  | Point             | (Transform)                        | Note that this definition implies that a point has an orientation.    |
+3  | Ray               | (Transform)                        | Find/define a convention: the ray always travels along the X-axis (?) |
+4  | Line              | (Transform, Length)                | Use the same convention as for the ray                                |
+5  | Rectangle         | (Transform, Point)                 | Axis-aligned rectangle                                                |
+5  | Right-Triangle    | (Transform, Point)                 | Axis-aligned right-angle triangle                                     |
+6a | Triangle          | (Transform, Point, Vector)         |                                                                       |
+6b | Triangle          | (Transform, Point, Length)         |                                                                       |
+
+### Homogeneous representations
+N  | Object            | Tuple                              | Comments                                                              |
+-- | ----------------- | ---------------------------------- | --------------------------------------------------------------------- |
+1  | Coordinate system | (Transform)                        |                                                                       |
+2  | Point             | (Transform)                        | Note that this definition implies that a point has an orientation.    |
+3  | Ray               | (Transform)                        | Find/define a convention: the ray always travels along the X-axis (?) |
+4  | Line              | (Transform, Transform)             | Use the same convention as for the ray                                |
+5  | Rectangle         | (Transform, Transform)             | Axis-aligned rectangle                                                |
+5  | Right-Triangle    | (Transform, Transform)             | Axis-aligned right-angle triangle                                     |
+6  | Triangle          | (Transform, Transform, Transform)  |                                                                       |
+
+Note that color and material information needs to be annotated to every one of these nodes, except the global coordinate system (root node).
+
+Technically every one of these objects can be represented by `(Transfrom, Color, [Point, ...,  Point])`.
+However, that is still ambiguous since a line, a rectangle, and a right-angle triangle will all have two points in their list (origin, other).
+Even if this was not the case, there are only three mechanisms I can think of to handle things such as intersection calculations:
+- runtime polymorphism
+- switch-case (over the object 'type' encoded by an enum or the size of the vector)
+- std::variant
 
 ### Python implementation
 
