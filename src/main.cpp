@@ -4,9 +4,12 @@
 #include <opencv2/highgui.hpp>
 
 #include "constants.hpp"
+#include "draw.hpp"
+#include "geometry.hpp"
 #include "image.hpp"
 #include "io.hpp"
 #include "raycast.hpp"
+#include "transformations.hpp"
 
 int main()
 {
@@ -17,7 +20,28 @@ int main()
     // SCENE GRAPH
 
     // RAYCASTING
-    const Image image = raycast();
+
+    Image image{};
+
+    Vertex p1 = vertex(220, 270);
+    Vertex p2 = translate(50, -50) * p1;
+    draw(p1, color::green, image);
+    draw(p2, color::magenta, image);
+
+    draw(vertex(0, 0), vertex(499, 499), color::white, image);
+
+    Transformation R = rotate(Degrees{-10});
+    Vertex a = vertex(0, 200);
+    draw(a, color::cyan, image);
+    draw(R*a, color::cyan, image);
+    draw(R*R*a, color::cyan, image);
+    draw(R*R*R*a, color::cyan, image);
+    draw(R*R*R*R*a, color::cyan, image);
+    draw(R*R*R*R*R*a, color::cyan, image);
+    draw(R*R*R*R*R*R*a, color::cyan, image);
+    draw(R*R*R*R*R*R*R*a, color::cyan, image);
+    draw(R*R*R*R*R*R*R*R*a, color::cyan, image);
+    draw(R*R*R*R*R*R*R*R*R*a, color::cyan, image);
 
     // OUTPUT
     auto cvmat = io::to_cvmat(image);
