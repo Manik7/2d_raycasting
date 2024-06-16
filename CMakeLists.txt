@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 23)
 
 set(SOURCES
     src/io.cpp
+    src/geometry.cpp
     src/raycast.cpp
     src/transformations.cpp
 )
