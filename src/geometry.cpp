@@ -1,4 +1,5 @@
 
+#include <algorithm>
 #include <utility>
 #include "geometry.hpp"
 
@@ -50,5 +51,23 @@ namespace rc
                      {vertex(0.0F, 0.0F), a, b},
                      {std::make_pair(0, 1), std::make_pair(1, 2), std::make_pair(2, 0)},
                      color};
+    }
+
+    std::pair<Vertex, Vertex> bounding_box(Graph const& graph)
+    {
+        std::pair<Vertex, Vertex> result(vertex(0.0F, 0.0F), vertex(0.0F, 0.0F));
+
+        if(graph._vertices.empty() == false)
+        {
+            auto x = std::minmax_element(graph._vertices.cbegin(),
+                                               graph._vertices.cend(),
+                                               [](Vertex const& l, Vertex const& r){ return l[0] < r[0]; });
+            auto y = std::minmax_element(graph._vertices.cbegin(),
+                                               graph._vertices.cend(),
+                                               [](Vertex const& l, Vertex const& r){ return l[1] < r[1]; });
+
+            result = std::make_pair(vertex((*x.first)[0], (*y.first)[1]), vertex((*x.second)[0], (*y.second)[1]));
+        }
+        return result;
     }
 }
