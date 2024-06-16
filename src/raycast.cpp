@@ -1,5 +1,6 @@
 #include "constants.hpp"
 #include "draw.hpp"
+#include "geometry.hpp"
 #include "image.hpp"
 #include "raycast.hpp"
 #include "transformations.hpp"

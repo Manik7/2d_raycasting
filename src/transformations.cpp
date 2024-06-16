@@ -1,5 +1,4 @@
 #include <cmath>
-#include "radians.hpp"
 #include "transformations.hpp"
 
 namespace rc
