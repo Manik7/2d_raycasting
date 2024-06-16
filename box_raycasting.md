@@ -125,10 +125,10 @@ N  | Object            | Tuple                              | Comments          
 2  | Point             | (Transform)                        | Note that this definition implies that a point has an orientation.    |
 3  | Ray               | (Transform)                        | Find/define a convention: the ray always travels along the X-axis (?) |
 4  | Line              | (Transform, Length)                | Use the same convention as for the ray                                |
-5  | Rectangle         | (Transform, Point)                 | Axis-aligned rectangle                                                |
-5  | Right-Triangle    | (Transform, Point)                 | Axis-aligned right-angle triangle                                     |
-6a | Triangle          | (Transform, Point, Vector)         |                                                                       |
-6b | Triangle          | (Transform, Point, Length)         |                                                                       |
+5  | Rectangle         | (Transform, Vertex)                | Axis-aligned rectangle                                                |
+6  | Right-Triangle    | (Transform, Vertex)                | Axis-aligned right-angle triangle                                     |
+7a | Triangle          | (Transform, Vertex, Vertex)        |                                                                       |
+7b | Triangle          | (Transform, Vertex, Length)        |                                                                       |
 
 ### Homogeneous representations
 N  | Object            | Tuple                              | Comments                                                              |
@@ -138,12 +138,12 @@ N  | Object            | Tuple                              | Comments          
 3  | Ray               | (Transform)                        | Find/define a convention: the ray always travels along the X-axis (?) |
 4  | Line              | (Transform, Transform)             | Use the same convention as for the ray                                |
 5  | Rectangle         | (Transform, Transform)             | Axis-aligned rectangle                                                |
-5  | Right-Triangle    | (Transform, Transform)             | Axis-aligned right-angle triangle                                     |
-6  | Triangle          | (Transform, Transform, Transform)  |                                                                       |
+6  | Right-Triangle    | (Transform, Transform)             | Axis-aligned right-angle triangle                                     |
+7  | Triangle          | (Transform, Transform, Transform)  |                                                                       |
 
 Note that color and material information needs to be annotated to every one of these nodes, except the global coordinate system (root node).
 
-Technically every one of these objects can be represented by `(Transfrom, Color, [Point, ...,  Point])`.
+Technically every one of these objects can be represented by `(Transfrom, Color, [Vertex, ...,  Vertex])`.
 However, that is still ambiguous since a line, a rectangle, and a right-angle triangle will all have two points in their list (origin, other).
 Even if this was not the case, there are only three mechanisms I can think of to handle things such as intersection calculations:
 - runtime polymorphism
