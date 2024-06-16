@@ -32,7 +32,7 @@ TEST(transformations, multiplication)
 
 TEST(transformations, origin)
 {
-    rc::Point result = rc::point(0.0F, 0.0F);
+    rc::Vertex result = rc::vertex(0.0F, 0.0F);
     EXPECT_FLOAT_EQ(result[0], 0.0F);
     EXPECT_FLOAT_EQ(result[1], 0.0F);
     EXPECT_FLOAT_EQ(result[2], 1.0F);
@@ -40,7 +40,7 @@ TEST(transformations, origin)
 
 TEST(transformations, point)
 {
-    rc::Point result = rc::point(3.0F, 5.0F);
+    rc::Vertex result = rc::vertex(3.0F, 5.0F);
     EXPECT_FLOAT_EQ(result[0], 3.0F);
     EXPECT_FLOAT_EQ(result[1], 5.0F);
     EXPECT_FLOAT_EQ(result[2], 1.0F);
@@ -49,8 +49,8 @@ TEST(transformations, point)
 TEST(transformation, translate)
 {
     rc::Transformation t = rc::translate(3.0F, 5.0F);
-    rc::Point p          = rc::point(0.0F, 0.0F);
-    rc::Point result     = t * p;
+    rc::Vertex p          = rc::vertex(0.0F, 0.0F);
+    rc::Vertex result     = t * p;
 
     EXPECT_FLOAT_EQ(result[0], 3.0F);
     EXPECT_FLOAT_EQ(result[1], 5.0F);
@@ -59,7 +59,7 @@ TEST(transformation, translate)
 
 TEST(transformation, translate_non_zero)
 {
-    rc::Point result     = rc::translate(-3.0F, 3.0F) * rc::point(8.0F, -1.0F);
+    rc::Vertex result     = rc::translate(-3.0F, 3.0F) * rc::vertex(8.0F, -1.0F);
     EXPECT_FLOAT_EQ(result[0], 5.0F);
     EXPECT_FLOAT_EQ(result[1], 2.0F);
     EXPECT_FLOAT_EQ(result[2], 1.0F);
@@ -67,9 +67,9 @@ TEST(transformation, translate_non_zero)
 
 TEST(transformation, rotate_counter_clockwise)
 {
-    rc::Point p          = rc::point(1.0F, 0.0F);
+    rc::Vertex p          = rc::vertex(1.0F, 0.0F);
     rc::Transformation t = rc::rotate(rc::Degrees{90.0F});
-    rc::Point result     = t*p;
+    rc::Vertex result     = t*p;
     EXPECT_NEAR(result[0], 0.0F, epsilon);
     EXPECT_NEAR(result[1], 1.0F, epsilon);
     EXPECT_FLOAT_EQ(result[2], 1.0F);
@@ -92,9 +92,9 @@ TEST(transformation, rotate_counter_clockwise)
 
 TEST(transformation, rotate_clockwise)
 {
-    rc::Point p          = rc::point(1.0F, 0.0F);
+    rc::Vertex p          = rc::vertex(1.0F, 0.0F);
     rc::Transformation t = rc::rotate(rc::Degrees{-90.0F});
-    rc::Point result     = t*p;
+    rc::Vertex result     = t*p;
     EXPECT_NEAR(result[0], 0.0F, epsilon);
     EXPECT_NEAR(result[1], -1.0F, epsilon);
     EXPECT_FLOAT_EQ(result[2], 1.0F);

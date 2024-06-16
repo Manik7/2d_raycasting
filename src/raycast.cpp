@@ -15,13 +15,13 @@ namespace rc
             image(i,i) = color::white;
         }
 
-        Point p1 = point(220, 270);
-        Point p2 = translate(50, -50) * p1;
+        Vertex p1 = vertex(220, 270);
+        Vertex p2 = translate(50, -50) * p1;
         draw(p1, color::green, image);
         draw(p2, color::magenta, image);
 
         Transformation R = rotate(Degrees{-10});
-        Point a = point(0, 200);
+        Vertex a = vertex(0, 200);
         draw(a, color::cyan, image);
         draw(R*a, color::cyan, image);
         draw(R*R*a, color::cyan, image);
