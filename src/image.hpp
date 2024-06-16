@@ -16,6 +16,7 @@ struct GenericImage
     static constexpr int padded_width()          { return Width+2*Padding; }
     static constexpr int padded_size()           { return padded_height() * padded_width(); }
     static constexpr int index(int row, int col) { return (row+Padding)*padded_width() + (col+Padding); } // row-major
+    static constexpr bool isPixelInBounds(int row, int col){ return 0 <= row && row < Height && 0 <= col && col < Width; }
 
     GenericImage() = default;
     GenericImage(std::array<T, size()> const& contents, T padding_value)

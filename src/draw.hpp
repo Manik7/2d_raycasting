@@ -23,12 +23,13 @@ namespace rc
         const float y2 = to[1];
         const float dx = x2 - x1;
         const float dy = y2 - y1;
+
         for(float x = x1; x <= x2; ++x)
         {
             const float y = y1 + dy * (x - x1) / dx;
             const int i = static_cast<int>(x);
             const int j = static_cast<int>(y);
-            if(0 <= i && i < image.height() && 0 <= j && j < image.width())
+            if(image.isPixelInBounds(i, j))
             {
                 image(i,j) = value;
             }
