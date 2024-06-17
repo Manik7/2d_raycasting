@@ -43,6 +43,9 @@ int main()
     draw(R*R*R*R*R*R*R*R*a, color::cyan, image);
     draw(R*R*R*R*R*R*R*R*R*a, color::cyan, image);
 
+    Graph rect = rectangle(translate(100, 100), vertex(40, 40), color::white);
+    draw_lines(rect, image);
+
     // OUTPUT
     auto cvmat = io::to_cvmat(image);
     cv::imshow("Display window", cvmat);

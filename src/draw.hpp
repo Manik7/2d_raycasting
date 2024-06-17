@@ -35,4 +35,25 @@ namespace rc
             }
         }
     }
+
+    template <typename T, int Height, int Width, int Padding>
+    void draw_vertices(Graph const& graph, GenericImage<T, Height, Width, Padding> & image)
+    {
+        for (Vertex const& vertex : graph._vertices)
+        {
+            draw(graph._transformation * vertex, graph._color, image);
+        }
+    }
+
+    template <typename T, int Height, int Width, int Padding>
+    void draw_lines(Graph const& graph, GenericImage<T, Height, Width, Padding> & image)
+    {
+        for (std::pair<int, int> const& edge : graph._edges)
+        {
+            draw(graph._transformation * graph._vertices[edge.first],
+                 graph._transformation * graph._vertices[edge.second],
+                 graph._color,
+                 image);
+        }
+    }
 }
