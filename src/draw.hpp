@@ -11,7 +11,10 @@ namespace rc
     {
         const int x = vertex[0];
         const int y = vertex[1];
-        image(x,y) = value;
+        if(image.isPixelInBounds(x, y))
+        {
+            image(x,y) = value;
+        }
     }
 
     template <typename T, int Height, int Width, int Padding>
