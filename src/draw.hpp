@@ -33,8 +33,8 @@ namespace rc
         //       the Gupta-Sproull line drawing algorithm: https://en.wikipedia.org/wiki/Line_drawing_algorithm
         for(float t = 0; t*t <= length_squared*samplesPerPixel; ++t)
         {
-            float x = x1 + (t*t/(length_squared*samplesPerPixel))*dx;
-            float y = y1 + (t*t/(length_squared*samplesPerPixel))*dy;
+            const float x = x1 + (t*t/(length_squared*samplesPerPixel))*dx;
+            const float y = y1 + (t*t/(length_squared*samplesPerPixel))*dy;
             const int i = static_cast<int>(std::round(x));
             const int j = static_cast<int>(std::round(y));
             if(image.isPixelInBounds(i, j))

@@ -116,4 +116,28 @@ TEST(draw, rotated_line)
     }
 }
 
+TEST(draw, transform_line)
+{
+    rc::GenericImage<rc::BGR, 3, 3, 0> image{};
+    rc::Graph const graph = rc::line(rc::translate(0, 0), rc::vertex(0,2), rc::color::green);
+    rc::Transformation const t = rc::translate(0, 2) * rc::rotate(rc::Degrees(-90));
+    rc::draw(t * graph, image);
+
+    EXPECT_EQ(image(0,0)._green, 0U);
+    EXPECT_EQ(image(0,1)._green, 0U);
+    EXPECT_EQ(image(0,2)._green, 255U);
+    EXPECT_EQ(image(1,0)._green, 0U);
+    EXPECT_EQ(image(1,1)._green, 0U);
+    EXPECT_EQ(image(1,2)._green, 255U);
+    EXPECT_EQ(image(2,0)._green, 0U);
+    EXPECT_EQ(image(2,1)._green, 0U);
+    EXPECT_EQ(image(2,2)._green, 255U);
+    for (rc::BGR const& color : image._data)
+    {
+        EXPECT_EQ(color._blue, 0U);
+        EXPECT_EQ(color._red, 0U);
+    }
+}
+
+
 }

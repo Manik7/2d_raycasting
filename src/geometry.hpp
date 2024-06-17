@@ -20,6 +20,10 @@ namespace rc
         // for 3d, add one more vector, to encode faces between edges
     };
 
+    // TODO: it's nice to multiply the entire graph by a transformation, and get a graph in return. This requires a lot
+    //       of copying though. Maybe I can come up with a more efficient solution here.
+    Graph operator*(Transformation const& t, Graph const& g);
+
     Vertex vertex(float x, float y);
 
     Graph coordinate(Transformation const& origin);

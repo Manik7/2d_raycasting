@@ -6,6 +6,13 @@
 
 namespace rc
 {
+    Graph operator*(Transformation const& t, Graph const& g)
+    {
+        Graph result = g;
+        result._transformation = t * result._transformation;
+        return result;
+    }
+
     Vertex vertex(float x, float y)
     {
         return Vertex{x, y, 1.0F};
