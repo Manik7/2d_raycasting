@@ -14,7 +14,7 @@ namespace rc
     namespace image
     {
         constexpr int height  = 500;
-        constexpr int width   = 500;
+        constexpr int width   = 800;
         constexpr int padding = 0;
     }
 

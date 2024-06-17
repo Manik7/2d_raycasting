@@ -28,6 +28,9 @@ int main()
     draw(p1, color::green, image);
     draw(p2, color::magenta, image);
 
+    // a point to check that (height, width) and (1st coordinate, 2nd coordinate) are consistent
+    draw(vertex(image::height-100, image::width-100), color::red, image);
+
     draw(vertex(0, 0), vertex(499, 499), color::white, image);
 
     Transformation R = rotate(Degrees{-10});
