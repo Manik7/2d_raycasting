@@ -100,15 +100,15 @@ TEST(draw, rotated_line)
     rc::Graph const graph = rc::line(rc::rotate(rc::Degrees(-90)), rc::vertex(0,2), rc::color::green);
     rc::draw(graph, image);
 
-    EXPECT_EQ(image(0,0)._green, 0U);
+    EXPECT_EQ(image(0,0)._green, 255U);
     EXPECT_EQ(image(0,1)._green, 0U);
     EXPECT_EQ(image(0,2)._green, 0U);
-    EXPECT_EQ(image(1,0)._green, 0U);
+    EXPECT_EQ(image(1,0)._green, 255U);
     EXPECT_EQ(image(1,1)._green, 0U);
     EXPECT_EQ(image(1,2)._green, 0U);
     EXPECT_EQ(image(2,0)._green, 255U);
-    EXPECT_EQ(image(2,1)._green, 255U);
-    EXPECT_EQ(image(2,2)._green, 255U);
+    EXPECT_EQ(image(2,1)._green, 0U);
+    EXPECT_EQ(image(2,2)._green, 0U);
     for (rc::BGR const& color : image._data)
     {
         EXPECT_EQ(color._blue, 0U);
