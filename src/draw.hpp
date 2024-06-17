@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cmath>
 #include "geometry.hpp"
 #include "image.hpp"
 
@@ -31,8 +32,8 @@ namespace rc
         {
             float x = x1 + (t*t/(length_squared*samplesPerPixel))*dx;
             float y = y1 + (t*t/(length_squared*samplesPerPixel))*dy;
-            const int i = static_cast<int>(x);
-            const int j = static_cast<int>(y);
+            const int i = static_cast<int>(std::round(x));
+            const int j = static_cast<int>(std::round(y));
             if(image.isPixelInBounds(i, j))
             {
                 image(i,j) = value;
