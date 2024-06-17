@@ -12,10 +12,10 @@ namespace rc
 
     struct Graph // a bag of vertices and lines
     {
-        Transformation _transformation{};
+        Transformation _transformation{{1, 0, 0}, {0, 1, 0}, {0, 0, 1}}; // initialize to valid homogeneous matrix
         std::vector<Vertex> _vertices{};
         std::vector<std::pair<int, int>> _edges{}; // a pair (a, b) means that there is a line from _vertices[a] to _vertices[b]
-        BGR _color{};
+        BGR _color{color::black};
         // for 3d, add one more vector, to encode faces between edges
     };
 
