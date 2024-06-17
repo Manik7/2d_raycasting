@@ -23,6 +23,7 @@ int main()
 
     Image image{};
 
+    // points above and below the diagonal
     Vertex p1 = vertex(220, 270);
     Vertex p2 = translate(50, -50) * p1;
     draw(p1, color::green, image);
@@ -31,8 +32,16 @@ int main()
     // a point to check that (height, width) and (1st coordinate, 2nd coordinate) are consistent
     draw(vertex(image::height-100, image::width-100), color::red, image);
 
+    // diagonal
     draw(vertex(0, 0), vertex(499, 499), color::white, image);
 
+    // multi-color square
+    draw(vertex(400, 60), vertex(400, 100), color::yellow, image);
+    draw(vertex(400, 100), vertex(360, 100), color::cyan, image);
+    draw(vertex(360, 100), vertex(360, 60), color::magenta, image);
+    draw(vertex(360, 60), vertex(400, 60), color::white, image);
+
+    // points along an arc
     Transformation R = rotate(Degrees{-10});
     Vertex a = vertex(0, 200);
     draw(a, color::cyan, image);
@@ -46,7 +55,9 @@ int main()
     draw(R*R*R*R*R*R*R*R*a, color::cyan, image);
     draw(R*R*R*R*R*R*R*R*R*a, color::cyan, image);
 
-    Graph rect = rectangle(translate(100, 100), vertex(40, 40), color::white);
+    // rectangle
+    Graph rect = rectangle(translate(100, 400), vertex(40, 40), color::white);
+    draw_vertices(rect, image);
     draw_lines(rect, image);
 
     // OUTPUT
