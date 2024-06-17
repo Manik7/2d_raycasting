@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <optional>
 #include <utility>
 #include <Eigen/Dense>
 #include "constants.hpp"
@@ -28,7 +29,7 @@ namespace rc
     Graph right_triangle(Transformation const& origin, Vertex const& other, BGR const& color);
     Graph triangle(Transformation const& origin, Vertex const& a, Vertex const& b, BGR const& color);
 
-    std::pair<Vertex, Vertex> bounding_box(Graph const& graph);
+    std::optional<std::pair<Vertex, Vertex>> bounding_box(Graph const& graph);
 
     // TODO: test free functions to create lines, polylines, triangles, right-triangles, and rectangles
     // TODO: free function to find the axis-aligned bounding box by finding the min-max values of the points (for each axis)

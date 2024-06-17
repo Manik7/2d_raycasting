@@ -1,5 +1,6 @@
 
 #include <algorithm>
+#include <optional>
 #include <utility>
 #include "geometry.hpp"
 
@@ -53,11 +54,14 @@ namespace rc
                      color};
     }
 
-    std::pair<Vertex, Vertex> bounding_box(Graph const& graph)
+    // Graphs which are empty, have only a coordinate system, or have only a coordinate system and a single point have
+    // no bounding box. In order to have a bounding box, the graph must contain at least two unequal points.
+    std::optional<std::pair<Vertex, Vertex>> bounding_box(Graph const& graph)
     {
-        std::pair<Vertex, Vertex> result(vertex(0.0F, 0.0F), vertex(0.0F, 0.0F));
 
-        if(graph._vertices.empty() == false)
+        if(graph._vertices.size() > 1 && std::any_of(graph._vertices.cbegin()+1,
+                                                     graph._vertices.cend(),
+                                                     [&graph](Vertex const& v){return v != graph._vertices.front();}))
         {
             auto x = std::minmax_element(graph._vertices.cbegin(),
                                                graph._vertices.cend(),
@@ -66,8 +70,12 @@ namespace rc
                                                graph._vertices.cend(),
                                                [](Vertex const& l, Vertex const& r){ return l[1] < r[1]; });
 
-            result = std::make_pair(vertex((*x.first)[0], (*y.first)[1]), vertex((*x.second)[0], (*y.second)[1]));
+            return std::optional<std::pair<Vertex, Vertex>>(std::make_pair(vertex((*x.first)[0], (*y.first)[1]),
+                                                                           vertex((*x.second)[0], (*y.second)[1])));
         }
-        return result;
+        else
+        {
+            return std::optional<std::pair<Vertex, Vertex>>(); // empty optional
+        }
     }
 }
