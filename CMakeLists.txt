@@ -11,6 +11,7 @@ set(SOURCES
     src/transformations.cpp
 )
 set(TESTS
+    test/test_bounding_box.cpp
     test/test_draw.cpp
     test/test_geometry.cpp
     test/test_image.cpp
