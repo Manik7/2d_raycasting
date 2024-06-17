@@ -57,8 +57,7 @@ int main()
 
     // rectangle
     Graph rect = rectangle(translate(100, 400), vertex(40, 40), color::white);
-    draw_vertices(rect, image);
-    draw_lines(rect, image);
+    draw(rect, image);
 
     // OUTPUT
     auto cvmat = io::to_cvmat(image);

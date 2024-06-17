@@ -50,7 +50,7 @@ namespace rc
     }
 
     template <typename T, int Height, int Width, int Padding>
-    void draw_lines(Graph const& graph, GenericImage<T, Height, Width, Padding> & image)
+    void draw_edges(Graph const& graph, GenericImage<T, Height, Width, Padding> & image)
     {
         for (std::pair<int, int> const& edge : graph._edges)
         {
@@ -59,5 +59,12 @@ namespace rc
                  graph._color,
                  image);
         }
+    }
+
+    template <typename T, int Height, int Width, int Padding>
+    void draw(Graph const& graph, GenericImage<T, Height, Width, Padding> & image)
+    {
+        draw_vertices(graph, image);
+        draw_edges(graph, image);
     }
 }
