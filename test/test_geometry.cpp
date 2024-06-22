@@ -9,19 +9,17 @@ namespace
 {
     TEST(geometry, empty)
     {
-        rc::Graph const g{};
+        rc::Graph<bool> const g{};
 
         EXPECT_EQ(g._transformation, Eigen::Matrix3f::Identity());
         EXPECT_EQ(g._vertices.size(), 0);
         EXPECT_EQ(g._edges.size(), 0);
-        EXPECT_EQ(g._color._blue, rc::color::black._blue);
-        EXPECT_EQ(g._color._green, rc::color::black._green);
-        EXPECT_EQ(g._color._red, rc::color::black._red);
+        EXPECT_EQ(g._value, false);
     }
 
     TEST(geometry, coordinate)
     {
-        rc::Graph const g = rc::coordinate(rc::translate(2, 3));
+        rc::Graph<bool> const g = rc::coordinate<bool>(rc::translate(2, 3));
         rc::Transformation const& t = g._transformation;
 
         EXPECT_FLOAT_EQ(t(0,0), 1.0F);
@@ -35,14 +33,12 @@ namespace
         EXPECT_FLOAT_EQ(t(2,2), 1.0F);
         EXPECT_EQ(g._vertices.size(), 0);
         EXPECT_EQ(g._edges.size(), 0);
-        EXPECT_EQ(g._color._blue, rc::color::black._blue);
-        EXPECT_EQ(g._color._green, rc::color::black._green);
-        EXPECT_EQ(g._color._red, rc::color::black._red);
+        EXPECT_EQ(g._value, false);
     }
 
     TEST(geometry, point)
     {
-        rc::Graph const g = rc::point(rc::translate(2, 3), rc::color::green);
+        rc::Graph<bool> const g = rc::point<bool>(rc::translate(2, 3), true);
         rc::Transformation const& t = g._transformation;
 
         EXPECT_FLOAT_EQ(t(0,0), 1.0F);
@@ -62,9 +58,7 @@ namespace
         EXPECT_FLOAT_EQ(v[1], 0.0F);
         EXPECT_FLOAT_EQ(v[2], 1.0F);
         EXPECT_EQ(g._edges.size(), 0);
-        EXPECT_EQ(g._color._blue, 0U);
-        EXPECT_EQ(g._color._green, 255U);
-        EXPECT_EQ(g._color._red, 0U);
+        EXPECT_EQ(g._value, true);
 
         rc::Vertex v_globl_coordinates = t * v;
         EXPECT_EQ(v_globl_coordinates[0], 2);
@@ -75,7 +69,7 @@ namespace
 
     TEST(geometry, line)
     {
-        rc::Graph const g = rc::line(rc::translate(2, 3), rc::vertex(5, 7), rc::color::green);
+        rc::Graph<bool> const g = rc::line<bool>(rc::translate(2, 3), rc::vertex(5, 7), true);
         rc::Transformation const& t = g._transformation;
 
         EXPECT_FLOAT_EQ(t(0,0), 1.0F);
@@ -114,14 +108,12 @@ namespace
 
         EXPECT_EQ(edge.first, 0);
         EXPECT_EQ(edge.second, 1);
-        EXPECT_EQ(g._color._blue, 0U);
-        EXPECT_EQ(g._color._green, 255U);
-        EXPECT_EQ(g._color._red, 0U);
+        EXPECT_EQ(g._value, true);
     }
 
     TEST(geometry, rectangle)
     {
-        rc::Graph const g = rc::rectangle(rc::translate(2, 3), rc::vertex(5, 7), rc::color::green);
+        rc::Graph<bool> const g = rc::rectangle<bool>(rc::translate(2, 3), rc::vertex(5, 7), true);
         rc::Transformation const& t = g._transformation;
 
         EXPECT_FLOAT_EQ(t(0,0), 1.0F);
@@ -161,14 +153,12 @@ namespace
         EXPECT_EQ(g._edges[2].second, 3);
         EXPECT_EQ(g._edges[3].first, 3);
         EXPECT_EQ(g._edges[3].second, 0);
-        EXPECT_EQ(g._color._blue, 0U);
-        EXPECT_EQ(g._color._green, 255U);
-        EXPECT_EQ(g._color._red, 0U);
+        EXPECT_EQ(g._value, true);
     }
 
     TEST(geometry, right_triangle)
     {
-        rc::Graph const g = rc::right_triangle(rc::translate(2, 3), rc::vertex(5, 7), rc::color::green);
+        rc::Graph<bool> const g = rc::right_triangle<bool>(rc::translate(2, 3), rc::vertex(5, 7), true);
         rc::Transformation const& t = g._transformation;
 
         EXPECT_FLOAT_EQ(t(0,0), 1.0F);
@@ -202,14 +192,12 @@ namespace
         EXPECT_EQ(g._edges[1].second, 2);
         EXPECT_EQ(g._edges[2].first, 2);
         EXPECT_EQ(g._edges[2].second, 0);
-        EXPECT_EQ(g._color._blue, 0U);
-        EXPECT_EQ(g._color._green, 255U);
-        EXPECT_EQ(g._color._red, 0U);
+        EXPECT_EQ(g._value, true);
     }
 
     TEST(geometry, triangle)
     {
-        rc::Graph const g = rc::triangle(rc::translate(2, 3), rc::vertex(5, 7), rc::vertex(11, 13), rc::color::green);
+        rc::Graph<bool> const g = rc::triangle<bool>(rc::translate(2, 3), rc::vertex(5, 7), rc::vertex(11, 13), true);
         rc::Transformation const& t = g._transformation;
 
         EXPECT_FLOAT_EQ(t(0,0), 1.0F);
@@ -243,8 +231,6 @@ namespace
         EXPECT_EQ(g._edges[1].second, 2);
         EXPECT_EQ(g._edges[2].first, 2);
         EXPECT_EQ(g._edges[2].second, 0);
-        EXPECT_EQ(g._color._blue, 0U);
-        EXPECT_EQ(g._color._green, 255U);
-        EXPECT_EQ(g._color._red, 0U);
+        EXPECT_EQ(g._value, true);
     }
 }

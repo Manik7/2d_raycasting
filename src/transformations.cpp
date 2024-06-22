@@ -3,10 +3,15 @@
 
 namespace rc
 {
-    Transformation translate(float x, float y)
+    Vertex vertex(float row, float col)
     {
-        return Transformation{{1.0F, 0.0F, x,},
-                              {0.0F, 1.0F, y,},
+        return Vertex{row, col, 1.0F};
+    }
+
+    Transformation translate(float row, float col)
+    {
+        return Transformation{{1.0F, 0.0F, row,},
+                              {0.0F, 1.0F, col,},
                               {0.0F, 0.0F, 1.0F}};
     }
 

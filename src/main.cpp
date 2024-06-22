@@ -56,7 +56,7 @@ int main()
     draw(R*R*R*R*R*R*R*R*R*a, color::cyan, image);
 
     // rectangle
-    Graph rect = rectangle(translate(100, 400), vertex(40, 40), color::white);
+    Graph<BGR> rect = rectangle(translate(100, 400), vertex(40, 40), color::white);
     draw(rect, image);
 
     // OUTPUT

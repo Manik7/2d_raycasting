@@ -9,7 +9,7 @@ namespace
 {
     TEST(bounding_box, empty)
     {
-        rc::Graph const g{};
+        rc::Graph<bool> const g{};
         std::optional<std::pair<rc::Vertex, rc::Vertex>> const maybe_aabb = rc::bounding_box(g);
 
         ASSERT_FALSE(maybe_aabb);
@@ -17,7 +17,7 @@ namespace
 
     TEST(bounding_box, coordinate)
     {
-        rc::Graph const g = rc::coordinate(rc::translate(2, 3));
+        rc::Graph<bool> const g = rc::coordinate<bool>(rc::translate(2, 3));
         std::optional<std::pair<rc::Vertex, rc::Vertex>> const maybe_aabb = rc::bounding_box(g);
 
         ASSERT_FALSE(maybe_aabb);
@@ -25,7 +25,7 @@ namespace
 
     TEST(bounding_box, point)
     {
-        rc::Graph const g = rc::point(rc::translate(2, 3), rc::color::green);
+        rc::Graph<bool> const g = rc::point(rc::translate(2, 3), true);
         std::optional<std::pair<rc::Vertex, rc::Vertex>> const maybe_aabb = rc::bounding_box(g);
 
         ASSERT_FALSE(maybe_aabb);
@@ -33,7 +33,7 @@ namespace
 
     TEST(bounding_box, two_same_points)
     {
-        rc::Graph g = rc::coordinate(rc::translate(2, 3));
+        rc::Graph<bool> g = rc::coordinate<bool>(rc::translate(2, 3));
         g._vertices.push_back(rc::vertex(0.0F, 0.0F));
         g._vertices.push_back(rc::vertex(0.0F, 0.0F));
 
@@ -44,7 +44,7 @@ namespace
 
     TEST(bounding_box, two_different_points)
     {
-        rc::Graph g = rc::coordinate(rc::translate(2, 3));
+        rc::Graph<bool> g = rc::coordinate<bool>(rc::translate(2, 3));
         g._vertices.push_back(rc::vertex(0.0F, 1.0F));
         g._vertices.push_back(rc::vertex(1.0F, 0.0F));
 
@@ -66,7 +66,7 @@ namespace
 
     TEST(bounding_box, rectangle)
     {
-        rc::Graph const g = rc::rectangle(rc::translate(2, 3), rc::vertex(-5, 7), rc::color::green);
+        rc::Graph<bool> const g = rc::rectangle<bool>(rc::translate(2, 3), rc::vertex(-5, 7), true);
         std::optional<std::pair<rc::Vertex, rc::Vertex>> const maybe_aabb = rc::bounding_box(g);
 
         ASSERT_TRUE(maybe_aabb);
@@ -85,7 +85,7 @@ namespace
 
     TEST(bounding_box, right_triangle)
     {
-        rc::Graph const g = rc::right_triangle(rc::translate(2, 3), rc::vertex(-5, 7), rc::color::green);
+        rc::Graph<bool> const g = rc::right_triangle<bool>(rc::translate(2, 3), rc::vertex(-5, 7), true);
         std::optional<std::pair<rc::Vertex, rc::Vertex>> const maybe_aabb = rc::bounding_box(g);
 
         ASSERT_TRUE(maybe_aabb);
@@ -104,7 +104,7 @@ namespace
 
     TEST(bounding_box, triangle)
     {
-        rc::Graph const g = rc::triangle(rc::translate(2, 3), rc::vertex(-5, -7), rc::vertex(11, 13), rc::color::green);
+        rc::Graph<bool> const g = rc::triangle<bool>(rc::translate(2, 3), rc::vertex(-5, -7), rc::vertex(11, 13), true);
         std::optional<std::pair<rc::Vertex, rc::Vertex>> const maybe_aabb = rc::bounding_box(g);
 
         ASSERT_TRUE(maybe_aabb);
