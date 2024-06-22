@@ -4,12 +4,18 @@
 
 namespace rc
 {
+
     struct BGR
     {
         uint8_t _blue{0U};
         uint8_t _green{0U};
         uint8_t _red{0U};
     };
+
+    namespace constants
+    {
+        constexpr float epsilon = 0.000001F;
+    }
 
     namespace image
     {

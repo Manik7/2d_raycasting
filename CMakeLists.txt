@@ -9,6 +9,7 @@ set(SOURCES
     src/geometry.cpp
     src/raycast.cpp
     src/transformations.cpp
+    src/utility.cpp
 )
 set(TESTS
     test/test_bounding_box.cpp
