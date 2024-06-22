@@ -116,6 +116,32 @@ TEST(draw, rotated_line)
     }
 }
 
+TEST(draw, transform_point)
+{
+    rc::GenericImage<rc::BGR, 3, 3, 0> image{};
+    rc::Graph const graph = rc::point(rc::translate(0, 0), rc::color::green);
+    rc::Transformation const t = rc::rotate(rc::Degrees(-90)) * rc::translate(0, 2);
+    // TODO: changing the rotation angle to -88 degrees fixes the unit test, which suggests rounding error might be to blame
+    // or some other problem in the line drawing code
+
+    rc::draw(t * graph, image);
+
+    EXPECT_EQ(image(0,0)._green, 0U);
+    EXPECT_EQ(image(0,1)._green, 0U);
+    EXPECT_EQ(image(0,2)._green, 0U);
+    EXPECT_EQ(image(1,0)._green, 0U);
+    EXPECT_EQ(image(1,1)._green, 0U);
+    EXPECT_EQ(image(1,2)._green, 0U);
+    EXPECT_EQ(image(2,0)._green, 255U);
+    EXPECT_EQ(image(2,1)._green, 0U);
+    EXPECT_EQ(image(2,2)._green, 0U);
+    for (rc::BGR const& color : image._data)
+    {
+        EXPECT_EQ(color._blue, 0U);
+        EXPECT_EQ(color._red, 0U);
+    }
+}
+
 TEST(draw, transform_line)
 {
     rc::GenericImage<rc::BGR, 3, 3, 0> image{};
